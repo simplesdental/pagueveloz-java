@@ -1,4 +1,4 @@
-package com.simplesdental.enums;
+package com.simplesdental.models.enums;
 
 public enum TipoContaBancaria {
 	NaoDefinido(0), ContaCorrente(1), ContaPoupanca(2);

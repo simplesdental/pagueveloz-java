@@ -3,7 +3,7 @@ package com.simplesdental.models;
 import java.util.Date;
 import java.util.List;
 
-import com.simplesdental.enums.TipoPessoa;
+import com.simplesdental.models.enums.TipoPessoa;
 
 public class Assinatura {
 	public String Nome = null;

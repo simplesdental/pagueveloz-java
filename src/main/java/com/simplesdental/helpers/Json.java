@@ -28,6 +28,10 @@ public class Json {
 		}
 	}
 
+	public static <T> T fromJson(String jsonString, Class<T> class1) {
+		return Json.fromJson(Json.parse(jsonString), class1);
+	}
+
 	// Ensures that there always is *a* object mapper
 	private static ObjectMapper mapper() {
 		if (objectMapper == null) {

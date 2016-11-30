@@ -1,4 +1,4 @@
-package com.simplesdental.enums;
+package com.simplesdental.models.enums;
 
 public enum TelefoneTipo {
 	Residencial(1), Comercial(2), Celular(4);

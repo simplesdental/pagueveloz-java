@@ -2,9 +2,9 @@ package com.simplesdental.models;
 
 import java.util.Date;
 
-import com.simplesdental.enums.StatusContaBancaria;
-import com.simplesdental.enums.TipoContaBancaria;
-import com.simplesdental.enums.TipoTitularContaBancaria;
+import com.simplesdental.models.enums.StatusContaBancaria;
+import com.simplesdental.models.enums.TipoContaBancaria;
+import com.simplesdental.models.enums.TipoTitularContaBancaria;
 
 public class ContaBancaria {
 	public String DigitoAgencia;

@@ -1,6 +1,6 @@
 package com.simplesdental.models;
 
-import com.simplesdental.enums.TipoPessoa;
+import com.simplesdental.models.enums.TipoPessoa;
 
 public class TitularContaBancaria {
 	public String Nome;

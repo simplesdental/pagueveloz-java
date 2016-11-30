@@ -1,7 +1,9 @@
 package com.simplesdental.resources;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.github.kevinsawicki.http.HttpRequest;
+import java.io.IOException;
+
+import com.google.api.client.http.HttpMethods;
+import com.google.api.client.http.HttpResponse;
 import com.simplesdental.helpers.Json;
 import com.simplesdental.helpers.request.Request;
 import com.simplesdental.helpers.request.RequestError;
@@ -9,17 +11,19 @@ import com.simplesdental.models.Assinatura;
 import com.simplesdental.models.AssinaturaResultado;
 
 public class Assinar {
-	public final static String RESOURCE_V4 = "api/v4/Assinar";
+	public final static String RESOURCE = "api/v4/Assinar";
 
 	public static AssinaturaResultado create(Assinatura assinatura) throws RequestError {
-		String uri = Request.createResourceUri(RESOURCE_V4);
+		try {
+			HttpResponse response = Request.resource(RESOURCE).method(HttpMethods.POST).body(Json.toString(assinatura)).send();
 
-		HttpRequest request = Request.createRequest(HttpRequest.METHOD_POST, uri).send(Json.toString(assinatura));
-		if (request.code() == 200) {
-			JsonNode json = Json.parse(request.body());
-			return Json.fromJson(json, AssinaturaResultado.class);
+			if (response.isSuccessStatusCode()) {
+				return Json.fromJson(response.parseAsString(), AssinaturaResultado.class);
+			}
+
+			throw new RequestError(response.parseAsString());
+		} catch (IOException e) {
+			throw new RequestError(e.getMessage());
 		}
-
-		throw new RequestError(request.body());
 	}
 }
