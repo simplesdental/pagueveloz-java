@@ -31,7 +31,7 @@ public class AssinarTest {
 
 		try {
 			Assinatura assinatura = Json.fromJson(Json.parse(MOCK_BODY), Assinatura.class);
-			AssinaturaResultado reponse = Assinar.create(assinatura);
+			AssinaturaResultado reponse = AssinarResource.create(assinatura);
 
 			assertEquals("Reponse should be equal mock", Json.toJson(reponse), Json.parse(MOCK_RETORNO));
 		} catch (RequestError e) {

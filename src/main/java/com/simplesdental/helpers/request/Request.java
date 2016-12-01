@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpResponse;
@@ -18,11 +17,15 @@ public class Request {
 	public static Boolean PRODUCTION = true;
 
 	public static String createResourceUri(String resource) {
-		return getApiUri() + "/" + resource;
+		return path(getApiUri(), resource);
 	}
 
 	public static String getApiUri() {
 		return PRODUCTION ? API_OFICIAL : API_SANDBOX;
+	}
+
+	public static String path(Object origin, Object dest) {
+		return origin + "/" + dest;
 	}
 
 	public static Request resource() throws IOException {
@@ -33,16 +36,17 @@ public class Request {
 		return new Request(resource);
 	}
 
-	private String method;
-
-	private String uri;
-
-	private HttpContent content;
-
 	private HttpRequest request;
+	private GenericUrl url;
 
-	public Request(String resource) throws IOException {
-		this.request = HTTP_TRANSPORT.createRequestFactory().buildGetRequest(new GenericUrl(createResourceUri(resource)));
+	private Request(String resource) throws IOException {
+		this.url = new GenericUrl(createResourceUri(resource));
+		this.request = HTTP_TRANSPORT.createRequestFactory().buildGetRequest(this.url);
+	}
+
+	public Request addParam(String key, Object value) throws IOException {
+		this.url.set(key, value);
+		return this;
 	}
 
 	public Request auth(RequestAuth auth) throws IOException {

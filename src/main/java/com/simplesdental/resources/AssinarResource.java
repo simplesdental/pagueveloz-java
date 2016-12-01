@@ -10,7 +10,7 @@ import com.simplesdental.helpers.request.RequestError;
 import com.simplesdental.models.Assinatura;
 import com.simplesdental.models.AssinaturaResultado;
 
-public class Assinar {
+public class AssinarResource {
 	public final static String RESOURCE = "api/v4/Assinar";
 
 	public static AssinaturaResultado create(Assinatura assinatura) throws RequestError {
