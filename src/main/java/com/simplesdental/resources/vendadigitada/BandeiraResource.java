@@ -1,4 +1,4 @@
-package com.simplesdental.resources.cartao.vendadigitada;
+package com.simplesdental.resources.vendadigitada;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -10,10 +10,9 @@ import com.simplesdental.helpers.request.Request;
 import com.simplesdental.helpers.request.RequestAuth;
 import com.simplesdental.helpers.request.RequestError;
 import com.simplesdental.models.Bandeira;
-import com.simplesdental.resources.cartao.CartaoResource;
 
 public class BandeiraResource {
-	public final static String RESOURCE = Request.path(CartaoResource.RESOURCE_V1, "Bandeiras");
+	public final static String RESOURCE = "api/Cartao/VendaDigitada/v1/Bandeiras";
 
 	@SuppressWarnings("unchecked")
 	public static List<Bandeira> list(RequestAuth auth, Bandeira bandeira, BigDecimal valorServico) {
