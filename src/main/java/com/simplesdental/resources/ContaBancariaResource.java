@@ -46,13 +46,12 @@ public class ContaBancariaResource {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public static List<ContaBancaria> list(RequestAuth auth, ContaBancaria contaBancaria) {
+	public static List<ContaBancaria> list(RequestAuth auth) {
 		try {
-			HttpResponse response = Request.resource(RESOURCE_V4).auth(auth).body(Json.toString(contaBancaria)).send();
+			HttpResponse response = Request.resource(RESOURCE_V4).auth(auth).send();
 
 			if (response.isSuccessStatusCode()) {
-				return Json.fromJson(response.parseAsString(), List.class);
+				return Json.fromJsonList(response.parseAsString(), ContaBancaria.class);
 			}
 
 			throw new RequestError(response.parseAsString());

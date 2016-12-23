@@ -12,6 +12,7 @@ import com.simplesdental.helpers.request.RequestAuth;
 import com.simplesdental.helpers.request.RequestError;
 import com.simplesdental.models.Bandeira;
 import com.simplesdental.models.Operacao;
+import com.simplesdental.models.Pagamento;
 import com.simplesdental.models.Parcela;
 import com.simplesdental.models.RetornoId;
 import com.simplesdental.models.Transacao;
@@ -19,8 +20,10 @@ import com.simplesdental.models.Transacao;
 public class TransacaoResource {
 	public final static String RESOURCE_CARTAO = "api/Cartao/VendaDigitada/v1";
 	public final static String RESOURCE_TRANSACAO = Request.path(RESOURCE_CARTAO, "Transacao");
+	public final static String RESOURCE_CONSULTA = Request.path(RESOURCE_CARTAO, "Consulta");
 	public final static String RESOURCE_CONFIRMACAO = Request.path(RESOURCE_CARTAO, "Confirmar");
 	public final static String RESOURCE_CANCELAR = Request.path(RESOURCE_CARTAO, "Cancelar");
+	public final static String RESOURCE_PAGAMENTO = Request.path(RESOURCE_CARTAO, "Pagamento");
 	public final static String RESOURCE_PARCELAMENTO = Request.path(RESOURCE_CARTAO, "Parcelamento");
 
 	public static RetornoId cancelar(RequestAuth auth, Transacao contaBancaria) {
@@ -55,8 +58,8 @@ public class TransacaoResource {
 
 	public static Operacao consultar(RequestAuth auth, Integer idTransacao) {
 		try {
-			String resource = Request.path(RESOURCE_TRANSACAO, idTransacao);
-			HttpResponse response = Request.resource(resource).send();
+			String resource = Request.path(RESOURCE_CONSULTA, idTransacao);
+			HttpResponse response = Request.resource(resource).auth(auth).send();
 
 			if (response.isSuccessStatusCode()) {
 				return Json.fromJson(response.parseAsString(), Operacao.class);
@@ -69,12 +72,12 @@ public class TransacaoResource {
 		}
 	}
 
-	public static RetornoId create(RequestAuth auth, Transacao contaBancaria) {
+	public static Integer create(RequestAuth auth, Transacao contaBancaria) {
 		try {
 			HttpResponse response = Request.resource(RESOURCE_TRANSACAO).method(HttpMethods.POST).auth(auth).body(Json.toString(contaBancaria)).send();
 
 			if (response.isSuccessStatusCode()) {
-				return Json.fromJson(response.parseAsString(), RetornoId.class);
+				return Integer.valueOf(response.parseAsString());
 			}
 
 			throw new RequestError(response.parseAsString());
@@ -84,7 +87,23 @@ public class TransacaoResource {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	public static Operacao pagamento(RequestAuth auth, Pagamento pagamento) {
+		try {
+			Request request = Request.resource(RESOURCE_PAGAMENTO).auth(auth);
+			request.method(HttpMethods.POST).body(Json.toString(pagamento));
+			HttpResponse response = request.send();
+
+			if (response.isSuccessStatusCode()) {
+				return Json.fromJson(response.parseAsString(), Operacao.class);
+			}
+
+			throw new RequestError(response.parseAsString());
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RequestError(e.getMessage());
+		}
+	}
+
 	public static List<Parcela> parcelamento(RequestAuth auth, Bandeira bandeira, BigDecimal valor) {
 		try {
 			Request request = Request.resource(RESOURCE_PARCELAMENTO).auth(auth);
@@ -93,7 +112,7 @@ public class TransacaoResource {
 			HttpResponse response = request.send();
 
 			if (response.isSuccessStatusCode()) {
-				return Json.fromJson(response.parseAsString(), List.class);
+				return Json.fromJsonList(response.parseAsString(), Parcela.class);
 			}
 
 			throw new RequestError(response.parseAsString());

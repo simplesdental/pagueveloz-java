@@ -1,4 +1,4 @@
-package com.simplesdental.utils;
+package com.simplesdental.test.utils;
 
 import com.google.api.client.testing.http.MockLowLevelHttpRequest;
 

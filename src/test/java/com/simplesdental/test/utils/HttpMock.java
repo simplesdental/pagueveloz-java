@@ -1,4 +1,4 @@
-package com.simplesdental.utils;
+package com.simplesdental.test.utils;
 
 import java.io.IOException;
 import java.util.function.Function;

@@ -1,5 +1,11 @@
 package com.simplesdental.helpers;
 
+import java.io.IOException;
+import java.util.List;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -30,6 +36,12 @@ public class Json {
 
 	public static <T> T fromJson(String jsonString, Class<T> class1) {
 		return Json.fromJson(Json.parse(jsonString), class1);
+	}
+
+	public static <T> List<T> fromJsonList(String jsonString, Class<T> class1) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, class1);
+		return mapper.readValue(jsonString, type);
 	}
 
 	// Ensures that there always is *a* object mapper

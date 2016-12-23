@@ -1,7 +1,6 @@
 package com.simplesdental.resources.vendadigitada;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.google.api.client.http.HttpResponse;
@@ -14,16 +13,13 @@ import com.simplesdental.models.Bandeira;
 public class BandeiraResource {
 	public final static String RESOURCE = "api/Cartao/VendaDigitada/v1/Bandeiras";
 
-	@SuppressWarnings("unchecked")
-	public static List<Bandeira> list(RequestAuth auth, Bandeira bandeira, BigDecimal valorServico) {
+	public static List<Bandeira> list(RequestAuth auth) {
 		try {
 			Request request = Request.resource(RESOURCE).auth(auth);
-			request.addParam("Bandeira", bandeira.Id);
-			request.addParam("ValorServico", valorServico);
 			HttpResponse response = request.send();
 
 			if (response.isSuccessStatusCode()) {
-				return Json.fromJson(response.parseAsString(), List.class);
+				return Json.fromJsonList(response.parseAsString(), Bandeira.class);
 			}
 
 			throw new RequestError(response.parseAsString());
@@ -33,7 +29,7 @@ public class BandeiraResource {
 		}
 	}
 
-	public static String retrieveUrlLogo(Integer idDandeira, BigDecimal valorServico) {
+	public static String retrieveUrlLogo(Integer idDandeira) {
 		return Request.path(RESOURCE, Request.path("Logo", idDandeira));
 	}
 }

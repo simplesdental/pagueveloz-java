@@ -1,16 +1,18 @@
-package com.simplesdental.helpers;
+package com.simplesdental.test.helpers;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.simplesdental.mocks.Mock;
-import com.simplesdental.mocks.MockEnum;
+import com.simplesdental.helpers.Json;
+import com.simplesdental.test.mocks.Mock;
+import com.simplesdental.test.mocks.MockEnum;
 
 public class JsonTest {
 	private Mock mockInstance = new Mock(MockEnum.Tipo6, "bar", 123);
 	private String jsonString = "{\"tipo\":6,\"foo\":\"bar\",\"foo_int\":123}";
+	private String jsonEnumString = "{\"tipo\":\"Tipo6\",\"foo\":\"bar\",\"foo_int\":123}";
 
 	@Test
 	public void fromJson() {
@@ -20,6 +22,15 @@ public class JsonTest {
 		assertEquals(mock.foo_int, mockInstance.foo_int);
 		assertEquals(mock.tipo, mockInstance.tipo);
 		assertEquals(mock.foo, mockInstance.foo);
+
+	}
+
+	@Test
+	public void fromJsonWithEnumString() {
+		JsonNode parsedEnumString = Json.parse(jsonEnumString);
+		Mock mock = Json.fromJson(parsedEnumString, Mock.class);
+
+		assertEquals(mock.tipo, mockInstance.tipo);
 	}
 
 	@Test

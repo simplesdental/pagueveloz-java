@@ -1,4 +1,4 @@
-package com.simplesdental.mocks;
+package com.simplesdental.test.mocks;
 
 public class Mock {
 	public MockEnum tipo;

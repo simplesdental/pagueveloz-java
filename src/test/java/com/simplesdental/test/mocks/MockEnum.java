@@ -1,4 +1,4 @@
-package com.simplesdental.mocks;
+package com.simplesdental.test.mocks;
 
 public enum MockEnum {
 	Tipo1(1), Tipo6(6);

@@ -11,4 +11,5 @@ public class Operacao {
 	public String Mensagem;
 	public String CupomEstabeleciomento;
 	public String CupomCliente;
+	public Boolean Sucesso;
 }

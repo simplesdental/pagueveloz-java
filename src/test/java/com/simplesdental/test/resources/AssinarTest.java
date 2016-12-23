@@ -1,4 +1,4 @@
-package com.simplesdental.resources;
+package com.simplesdental.test.resources;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,11 +10,12 @@ import com.simplesdental.helpers.request.Request;
 import com.simplesdental.helpers.request.RequestError;
 import com.simplesdental.models.Assinatura;
 import com.simplesdental.models.AssinaturaResultado;
-import com.simplesdental.utils.HttpMock;
+import com.simplesdental.resources.AssinarResource;
+import com.simplesdental.test.utils.HttpMock;
 
 public class AssinarTest {
-	String MOCK_BODY = "{\"Nome\":\"Joaodoidao\",\"Documento\":\"287.516.026-52\",\"Email\":\"luiz+joaoteste@simplesdental.com\",\"Endereco\":{\"Bairro\":\"Centro\",\"Cidade\":{\"Nome\":\"Criciuma\",\"Estado\":\"SantaCatarina\"},\"Logradouro\":\"Ruajosedepatta\",\"Numero\":\"499\",\"CEP\":\"88802240\"},\"Telefones\":[{\"Tipo\":1,\"Numero\":\"48999991999\"}],\"DataNascimento\":\"1990-11-17T00:00:00Z\",\"TipoPessoa\":1,\"Usuario\":{\"Nome\":\"Joaodoidao\",\"Email\":\"luiz+joaoteste@simplesdental.com\",\"Senha\":\"qwe123@A\",\"ConfirmacaoSenha\":\"qwe123@A\",\"Ativo\":true}}";
-	String MOCK_RETORNO = "{\"Id\":2735,\"Token\":\"1cba9ae5-7f64-40a7-a17f-9647c97eb7b0\"}";
+	public static String MOCK_BODY = "{\"Nome\":\"Joaodoidao\",\"Documento\":\"287.516.026-52\",\"Email\":\"luiz+joaoteste@simplesdental.com\",\"Endereco\":{\"Bairro\":\"Centro\",\"Cidade\":{\"Nome\":\"Criciuma\",\"Estado\":\"SantaCatarina\"},\"Logradouro\":\"Ruajosedepatta\",\"Numero\":\"499\",\"CEP\":\"88802240\"},\"Telefones\":[{\"Tipo\":1,\"Numero\":\"48999991999\"}],\"DataNascimento\":\"1990-11-17T00:00:00Z\",\"TipoPessoa\":1,\"Usuario\":{\"Nome\":\"Joaodoidao\",\"Email\":\"luiz+joaoteste@simplesdental.com\",\"Senha\":\"qwe123@A\",\"ConfirmacaoSenha\":\"qwe123@A\",\"Ativo\":true}}";
+	public static String MOCK_RETORNO = "{\"Id\":2735,\"Token\":\"1cba9ae5-7f64-40a7-a17f-9647c97eb7b0\"}";
 
 	@Test
 	public void create() {

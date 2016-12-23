@@ -8,4 +8,5 @@ public class ProprietarioCartao {
 	public String Email;
 	public Boolean EnviarEmail;
 	public Boolean EnviarSMS;
+	public String Nome;
 }
