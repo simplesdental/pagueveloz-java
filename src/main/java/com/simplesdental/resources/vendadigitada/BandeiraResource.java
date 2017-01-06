@@ -30,6 +30,6 @@ public class BandeiraResource {
 	}
 
 	public static String retrieveUrlLogo(Integer idDandeira) {
-		return Request.path(RESOURCE, Request.path("Logo", idDandeira));
+		return Request.path(Request.getApiUri(), Request.path(RESOURCE, Request.path("Logo", idDandeira)));
 	}
 }
