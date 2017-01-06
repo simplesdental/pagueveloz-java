@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.api.client.http.HttpMethods;
+import com.simplesdental.helpers.Json;
 import com.simplesdental.helpers.request.Request;
 import com.simplesdental.helpers.request.RequestAuth;
 import com.simplesdental.models.Saldo;
@@ -31,6 +32,7 @@ public class SaldoTest {
 		});
 
 		Saldo saldo = SaldoResource.retrieve(auth);
+		System.out.println(Json.toString(saldo));
 		Assert.assertEquals("Description should be ", saldo.Bloqueado, BigDecimal.ZERO);
 	}
 }
