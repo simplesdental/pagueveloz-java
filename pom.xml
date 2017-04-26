@@ -3,6 +3,22 @@
   <groupId>com.simplesdental</groupId>
   <artifactId>pagueveloz</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+ 
+  <properties>
+  	<maven.compiler.source>1.8</maven.compiler.source>
+    	<maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  
+  <build>
+	  <resources>
+	     <resource>
+	       <directory>src/main/java/com/simplesdental/resources</directory>
+	     </resource>
+	     <resource>
+	       <directory>src/test/java/com/simplesdental/test/resources</directory>
+	     </resource>
+	  </resources>  
+  </build>
   
   <dependencies>
 	<dependency>
